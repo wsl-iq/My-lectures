@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام جدول المحاضرات - اختيار الدوام</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏫</text></svg>">
+    <style>
+        /* متغيرات التصميم */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --morning-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --evening-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gold-gradient: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-light: #718096;
+            
+            --border-radius-xl: 30px;
+            --border-radius-lg: 20px;
+            --border-radius-md: 15px;
+            --border-radius-sm: 10px;
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* الوضع الداكن */
+        body.dark-mode {
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-light: #64748b;
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* خلفية متحركة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        /* الحاوية الرئيسية */
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+            z-index: 1;
+        }
+        
+        /* بطاقة التطبيق */
+        .app-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-xl);
+            padding: 40px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gold-gradient);
+            opacity: 0.05;
+            z-index: -1;
+        }
+        
+        /* رأس البطاقة */
+        .card-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .university-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .card-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        
+        .card-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* خيارات الدوام */
+        .study-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .option-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .morning-card::before {
+            background: var(--morning-gradient);
+        }
+        
+        .evening-card::before {
+            background: var(--evening-gradient);
+        }
+        
+        .option-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: transparent;
+        }
+        
+        .option-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .option-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 25px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+        
+        .morning-card .option-icon {
+            background: var(--morning-gradient);
+            color: white;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+        }
+        
+        .evening-card .option-icon {
+            background: var(--evening-gradient);
+            color: white;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+        
+        .option-card:hover .option-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .option-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            transition: var(--transition-smooth);
+        }
+        
+        .morning-card .option-title {
+            color: #f5576c;
+        }
+        
+        .evening-card .option-title {
+            color: #00f2fe;
+        }
+        
+        .option-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            max-width: 250px;
+        }
+        
+        .option-features {
+            list-style: none;
+            text-align: right;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+        
+        .option-features li {
+            padding: 8px 0;
+            color: var(--text-light);
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .option-features li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .option-button {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* مؤشر التقدم */
+        .progress-indicator {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .progress-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gold-gradient);
+            width: 50%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-percentage {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* تذييل الصفحة */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* زر العودة */
+        .back-home {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            z-index: 100;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .back-home:hover {
+            transform: rotate(360deg) scale(1.1);
+            background: var(--primary-gradient);
+            color: white;
+        }
+        
+        /* زر تبديل المظهر */
+        .theme-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            z-index: 100;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
+            background: var(--primary-gradient);
+            color: white;
+        }
+        
+        /* الأنيميشن */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* تأثيرات الإشعارات */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 20px;
+            color: var(--text-primary);
+            box-shadow: var(--glass-shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            z-index: 1000;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .notification.success {
+            border-right: 4px solid #48bb78;
+        }
+        
+        .notification.info {
+            border-right: 4px solid #4299e1;
+        }
+        
+        /* التجاوب مع الشاشات */
+        @media (max-width: 768px) {
+            html { font-size: 14px; }
+            
+            .app-card { padding: 25px; }
+            
+            .card-title { font-size: 2.2rem; }
+            
+            .study-options { grid-template-columns: 1fr; gap: 20px; }
+            
+            .option-card { min-height: 340px; padding: 30px 20px; }
+            
+            .option-icon { width: 80px; height: 80px; font-size: 2.5rem; }
+            
+            .back-home, .theme-toggle {
+                top: 20px;
+                right: 20px;
+                left: 20px;
+            }
+            
+            .theme-toggle { left: 20px; right: auto; }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container { padding: 10px; }
+            
+            .app-card { padding: 20px; }
+            
+            .card-title { font-size: 1.8rem; }
+            
+            .card-subtitle { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- زر العودة للموقع الرئيسي -->
+    <a href="https://your-main-website.com" class="back-home" title="العودة للرئيسية" id="backHome">
+        <i class="fas fa-home"></i>
+    </a>
+    
+    <!-- زر تبديل المظهر -->
+    <button class="theme-toggle" id="themeToggle" title="تبديل المظهر">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <!-- الحاوية الرئيسية -->
+    <div class="main-container">
+        <!-- بطاقة التطبيق -->
+        <div class="app-card">
+            <div class="card-header">
+                <div class="university-logo">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h1 class="card-title">نظام جدول المحاضرات</h1>
+                <p class="card-subtitle">كلية التربية - قسم اللغة الإنجليزية<br>اختر نوع الدراسة المناسب لك</p>
+            </div>
+            
+            <!-- خيارات الدراسة -->
+            <div class="study-options">
+                <!-- الدراسة الصباحية -->
+                <div class="option-card morning-card" id="morningOption">
+                    <div class="option-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h2 class="option-title">الدراسة الصباحية</h2>
+                    <p class="option-description">الفترة الصباحية من الساعة 8:30 صباحاً حتى 2:00 ظهراً</p>
+                    
+                    <ul class="option-features">
+                        <li>جو دراسي هادئ ومكثف</li>
+                        <li>تركيز أعلى في ساعات الصباح</li>
+                        <li>أنشطة صباحية متنوعة</li>
+                        <li>توفر جميع الخدمات الطلابية</li>
+                    </ul>
+                    
+                    <button class="option-button" onclick="selectStudyType('morning')">
+                        <span>بدء الدراسة الصباحية</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+                
+                <!-- الدراسة المسائية -->
+                <div class="option-card evening-card" id="eveningOption">
+                    <div class="option-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h2 class="option-title">الدراسة المسائية</h2>
+                    <p class="option-description">الفترة المسائية من الساعة 2:00 ظهراً حتى 8:00 مساءً</p>
+                    
+                    <ul class="option-features">
+                        <li>مرونة في الوقت المناسب للعمل</li>
+                        <li>بيئة دراسية مريحة</li>
+                        <li>دعم تعليمي مستمر</li>
+                        <li>تسهيلات للطلاب العاملين</li>
+                    </ul>
+                    
+                    <button class="option-button" onclick="selectStudyType('evening')">
+                        <span>بدء الدراسة المسائية</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- مؤشر التقدم -->
+            <div class="progress-indicator">
+                <div class="progress-text">تقدم اختيار الدراسة</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-percentage" id="progressPercentage">0%</div>
+            </div>
+        </div>
+        
+        <!-- تذييل الصفحة -->
+        <div class="footer" style="direction: rtl;">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+            <!-- شعار الكلية والاسم -->
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:64px;height:64px;border-radius:14px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+                <i class="fas fa-university" aria-hidden="true" style="color:#fff"></i>
+                </div>
+                <div style="text-align:right;line-height:1.15;">
+                <div style="font-weight:700;font-size:1rem;">كلية التربية قسم اللغة الأنكليزية</div>
+                <div style="font-size:0.9rem;color:rgba(255,255,255,0.75)">واجهة حديثة — سهولة الاستخدام</div>
+                </div>
+            </div>
+
+            <!-- معلومات المطور وروابط التواصل -->
+            <div style="display:flex;align-items:center;gap:18px;">
+                <div style="text-align:right;">
+                <div style="font-size:0.9rem;color:rgba(255,255,255,0.75);">تطوير بواسطة</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
+                    <div style="width:40px;height:40px;border-radius:50%;background:var(--gold-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div style="font-weight:600;">محمد الباقر</div>
+                </div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:10px;">
+                <a href="https://t.me/wsl_iq" class="footer-link" onclick="app.showHelp();return false;" title="مساعدة / تليغرام">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                    <span style="margin-right:6px;">تليغرام</span>
+                </a>
+
+                <a href="https://www.instagram.com/wsl.iq/" class="footer-link" onclick="app.showContact();return false;" title="أنستغرام">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                    <span style="margin-right:6px;">أنستغرام</span>
+                </a>
+
+                <!-- شعار خارجي أو رابط المؤسسة (اختياري) -->
+                <a href="https://wsl-iq.github.io/" class="footer-link" title="الموقع الرئيسي">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span style="margin-right:6px;">الموقع</span>
+                </a>
+                </div>
+            </div>
+            </div>
+
+            <div style="margin-top:14px;font-size:0.85rem;color:rgba(255,255,255,0.7);text-align:center;">
+            &copy; 2025 نظام جدول المحاضرات. جميع الحقوق محفوظة.
+            </div>
+
+            <!--رسالة توضيحية رسمية-->
+            <!--"ملاحظة: هذا العمل مُنجز من قِبل مطوّر مستقل، وبمبادرة شخصية هدفها تنظيم المحتوى وتقديمه بصورة أوضح وأكثر احتراف. المشروع غير تابع لأي جهة رسمية، وتم العمل عليه بدافع الاهتمام والترتيب وتحسين تجربة المستخدم."-->
+            <div role="alert" aria-live="polite" style="margin-top:14px;border-radius:12px;padding:14px 16px;background:linear-gradient(90deg,#fff3cd,#ffe8a1);color:#5a3e00;border:1px solid rgba(90,62,0,0.12);box-shadow:0 8px 24px rgba(90,62,0,0.08);font-weight:700;text-align:right;display:flex;align-items:center;gap:12px;">
+                <span style="font-size:1.2rem;line-height:1;">⚠️</span>
+                <small style="font-size:0.95rem;line-height:1.4;display:block;">
+                    ملاحظة: هذا العمل مُنجز من قِبل مطوّر مستقل، وبمبادرة شخصية هدفها تنظيم المحتوى وتقديمه بصورة أوضح وأكثر احتراف المشروع غير تابع لأي جهة رسمية، وتم العمل عليه بدافع الاهتمام والترتيب وتحسين تجربة المستخدم.
+                </small>
+            </div>
+        </div>
+    
+    <!-- نافذة الإشعارات -->
+    <div id="notificationContainer"></div>
+
+    <script>
+        // البيانات والتطبيق
+        const app = {
+            // حالة التطبيق
+            state: {
+                studyType: null,
+                darkMode: false,
+                progress: 0
+            },
+            
+            // تهيئة التطبيق
+            init: function() {
+                console.log('🚀 بدء تشغيل نظام اختيار الدراسة');
+                
+                // تحميل الإعدادات المحفوظة
+                this.loadSettings();
+                
+                // إعداد التفاعلات
+                this.setupEventListeners();
+                
+                // تحديث الواجهة
+                this.updateUI();
+                
+                // عرض رسالة ترحيب
+                setTimeout(() => {
+                    this.showNotification('مرحباً بك في نظام جدول المحاضرات', 'info');
+                }, 1000);
+                
+                console.log('✅ النظام جاهز للاستخدام');
+            },
+            
+            // تحميل الإعدادات
+            loadSettings: function() {
+                const savedStudyType = localStorage.getItem('studyType');
+                const savedDarkMode = localStorage.getItem('darkMode');
+                
+                if (savedStudyType) {
+                    this.state.studyType = savedStudyType;
+                    this.state.progress = 50;
+                }
+                
+                if (savedDarkMode === 'true') {
+                    this.state.darkMode = true;
+                    document.body.classList.add('dark-mode');
+                }
+                
+                console.log('📂 الإعدادات المحفوظة:', {
+                    studyType: savedStudyType,
+                    darkMode: savedDarkMode
+                });
+            },
+            
+            // حفظ الإعدادات
+            saveSettings: function() {
+                localStorage.setItem('studyType', this.state.studyType);
+                localStorage.setItem('darkMode', this.state.darkMode);
+                
+                // حفظ التقدم الإجمالي
+                const totalProgress = {
+                    studyType: this.state.studyType,
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('studyProgress', JSON.stringify(totalProgress));
+                
+                console.log('💾 تم حفظ الإعدادات:', this.state);
+            },
+            
+            // إعداد التفاعلات
+            setupEventListeners: function() {
+                // اختيار الدراسة الصباحية
+                document.getElementById('morningOption').addEventListener('click', () => {
+                    this.selectStudyType('morning');
+                });
+                
+                // اختيار الدراسة المسائية
+                document.getElementById('eveningOption').addEventListener('click', () => {
+                    this.selectStudyType('evening');
+                });
+                
+                // تبديل المظهر
+                document.getElementById('themeToggle').addEventListener('click', () => {
+                    this.toggleTheme();
+                });
+                
+                // زر العودة
+                document.getElementById('backHome').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.goBackHome();
+                });
+                
+                // اختصارات لوحة المفاتيح
+                document.addEventListener('keydown', (e) => {
+                    // اختيار الصباحي بـ 1
+                    if (e.key === '1') {
+                        this.selectStudyType('morning');
+                    }
+                    
+                    // اختيار المسائي بـ 2
+                    if (e.key === '2') {
+                        this.selectStudyType('evening');
+                    }
+                    
+                    // تبديل المظهر بـ T
+                    if (e.key === 't' || e.key === 'T') {
+                        this.toggleTheme();
+                    }
+                    
+                    // العودة للرئيسية بـ Escape
+                    if (e.key === 'Escape') {
+                        this.goBackHome();
+                    }
+                });
+                
+                // تأثيرات Hover للبطاقات
+                const cards = document.querySelectorAll('.option-card');
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        card.style.transform = 'translateY(-15px)';
+                        card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        if (!card.classList.contains('selected')) {
+                            card.style.transform = 'translateY(0)';
+                            card.style.boxShadow = '';
+                        }
+                    });
+                });
+            },
+            
+            // تحديث الواجهة
+            updateUI: function() {
+                // تحديث مؤشر التقدم
+                this.updateProgress();
+                
+                // تحديث أزرار التبديل
+                this.updateThemeButton();
+                
+                // تحديد البطاقة المختارة
+                this.updateSelectedCard();
+            },
+            
+            // تحديث مؤشر التقدم
+            updateProgress: function() {
+                const progressFill = document.getElementById('progressFill');
+                const progressPercentage = document.getElementById('progressPercentage');
+                
+                if (progressFill) {
+                    progressFill.style.width = `${this.state.progress}%`;
+                }
+                
+                if (progressPercentage) {
+                    progressPercentage.textContent = `${this.state.progress}%`;
+                }
+            },
+            
+            // تحديث زر المظهر
+            updateThemeButton: function() {
+                const themeIcon = document.querySelector('#themeToggle i');
+                if (themeIcon) {
+                    if (this.state.darkMode) {
+                        themeIcon.className = 'fas fa-sun';
+                        document.getElementById('themeToggle').title = 'الوضع الفاتح';
+                    } else {
+                        themeIcon.className = 'fas fa-moon';
+                        document.getElementById('themeToggle').title = 'الوضع الداكن';
+                    }
+                }
+            },
+            
+            // تحديث البطاقة المحددة
+            updateSelectedCard: function() {
+                // إزالة التحديد من الكل
+                document.querySelectorAll('.option-card').forEach(card => {
+                    card.classList.remove('selected');
+                    card.style.transform = 'translateY(0)';
+                });
+                
+                // إضافة التحديد للبطاقة المختارة
+                if (this.state.studyType === 'morning') {
+                    const morningCard = document.getElementById('morningOption');
+                    morningCard.classList.add('selected');
+                    morningCard.style.transform = 'translateY(-10px)';
+                    morningCard.style.boxShadow = '0 15px 30px rgba(245, 87, 108, 0.3)';
+                } else if (this.state.studyType === 'evening') {
+                    const eveningCard = document.getElementById('eveningOption');
+                    eveningCard.classList.add('selected');
+                    eveningCard.style.transform = 'translateY(-10px)';
+                    eveningCard.style.boxShadow = '0 15px 30px rgba(79, 172, 254, 0.3)';
+                }
+            },
+            
+            // اختيار نوع الدراسة
+            selectStudyType: function(type) {
+                console.log(`🎓 اختيار الدراسة: ${type}`);
+                
+                // تحديث الحالة
+                this.state.studyType = type;
+                this.state.progress = 50;
+                
+                // حفظ الإعدادات
+                this.saveSettings();
+                
+                // تحديث الواجهة
+                this.updateUI();
+                
+                // عرض رسالة تأكيد
+                const message = type === 'morning' 
+                    ? 'تم اختيار الدراسة الصباحية بنجاح!' 
+                    : 'تم اختيار الدراسة المسائية بنجاح!';
+                
+                this.showNotification(message, 'success');
+                
+                // الانتقال إلى صفحة الجدول بعد تأخير
+                setTimeout(() => {
+                    this.redirectToSchedule(type);
+                }, 1500);
+            },
+            
+            // الانتقال إلى صفحة الجدول
+            redirectToSchedule: function(type) {
+                // عرض رسالة تحميل
+                this.showNotification('جاري تحميل الجدول الدراسي...', 'info');
+                
+                // محاكاة الانتقال (في التطبيق الحقيقي سيكون هذا رابطاً)
+                setTimeout(() => {
+                    if (type === 'morning') {
+                        window.location.href = 'morning/index.html';
+                        this.showNotification('سيتم الانتقال إلى جدول الصباح', 'info');
+                    } else {
+                        window.location.href = 'evening/index.html';
+                        this.showNotification('سيتم الانتقال إلى جدول المساء', 'info');
+                    }
+                }, 1000);
+            },
+            
+            // تبديل المظهر
+            toggleTheme: function() {
+                this.state.darkMode = !this.state.darkMode;
+                
+                // تطبيق المظهر
+                if (this.state.darkMode) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+                
+                // حفظ الإعدادات
+                this.saveSettings();
+                
+                // تحديث الواجهة
+                this.updateUI();
+                
+                // عرض رسالة
+                const message = this.state.darkMode 
+                    ? 'تم تفعيل الوضع الداكن' 
+                    : 'تم تفعيل الوضع الفاتح';
+                
+                this.showNotification(message, 'info');
+                
+                console.log(`🌙 تبديل المظهر: ${this.state.darkMode ? 'داكن' : 'فاتح'}`);
+            },
+            
+            // العودة للصفحة الرئيسية
+            goBackHome: function() {
+                this.showNotification('جاري العودة للصفحة الرئيسية...', 'info');
+                
+                // محاكاة الانتقال
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                    this.showNotification('سيتم الانتقال إلى الصفحة الرئيسية', 'info');
+                }, 1000);
+            },
+            
+            // عرض إشعار
+            showNotification: function(message, type = 'info') {
+                // إنشاء عنصر الإشعار
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                // إضافة الأيقونة المناسبة
+                const icon = type === 'success' ? 'check-circle' : 'info-circle';
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <i class="fas fa-${icon}" style="font-size: 1.5rem;"></i>
+                        <div style="flex: 1; text-align: right;">
+                            <strong style="display: block; margin-bottom: 5px;">${type === 'success' ? 'تم بنجاح' : 'معلومة'}</strong>
+                            <span>${message}</span>
+                        </div>
+                    </div>
+                `;
+                
+                // إضافة إلى الصفحة
+                document.getElementById('notificationContainer').appendChild(notification);
+                
+                // عرض الإشعار
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+                
+                // إخفاء الإشعار بعد 5 ثوان
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 5000);
+                
+                console.log(`📢 إشعار: ${message}`);
+            },
+            
+            // إظهار معلومات النظام
+            showInfo: function() {
+                this.showNotification(`
+                    نظام جدول المحاضرات الإلكتروني<br>
+                    تم تطويره خصيصاً لكلية التربية<br>
+                    يدعم كلاً من الدراسة الصباحية والمسائية
+                `, 'info');
+            },
+            
+            // إظهار المساعدة
+            showHelp: function() {
+                this.showNotification(`
+                    <strong>تعليمات الاستخدام:</strong><br>
+                    1. اختر نوع الدراسة المناسب لك<br>
+                    2. اضغط على الزر للانتقال للجدول<br>
+                    3. يمكنك تغيير المظهر من الزر العلوي<br>
+                    4. استخدم الأرقام 1 و 2 للاختيار السريع
+                `, 'info');
+            },
+            
+            // إظهار معلومات الاتصال
+            // أظهار معلومات المطور او التواصل مع المطور عبر التليغرام او الانتستغرام
+            // instagram: https://www.instagram.com/wsl.iq/
+            // telegram: https://t.me/wsl_iq
+            showContact: function() {
+                this.showNotification(`
+                    للتواصل معنا:<br>
+                    <a href="https://www.instagram.com/wsl.iq/" target="_blank" style="color: #4299e1; text-decoration: underline;">Instagram</a><br>
+                    <a href="https://t.me/wsl_iq" target="_blank" style="color: #4299e1; text-decoration: underline;">Telegram</a>
+                `, 'info');
+            }
+        };
+        
+        // بدء التطبيق عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+        
+        // تأثيرات إضافية
+        window.addEventListener('load', () => {
+            // إضافة تأثير توهج للبطاقات
+            setInterval(() => {
+                const cards = document.querySelectorAll('.option-card');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.boxShadow = card.classList.contains('morning-card')
+                            ? '0 0 20px rgba(245, 87, 108, 0.3)'
+                            : '0 0 20px rgba(79, 172, 254, 0.3)';
+                        
+                        setTimeout(() => {
+                            if (!card.classList.contains('selected')) {
+                                card.style.boxShadow = '';
+                            }
+                        }, 500);
+                    }, index * 300);
+                });
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
