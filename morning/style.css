@@ -1,60 +1,48 @@
-/* ملف CSS حديث بتصميم Glassmorphism */
 :root {
-    /* ألوان التصميم الحديث - ألوان زرقاء وبنفسجية مع لمسة من الوردي */
     --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     
-    /* ألوان حسب اليوم */
     --saturday-color: #667eea;
     --sunday-color: #764ba2;
     --monday-color: #f5576c;
     
-    /* ألوان النصوص */
     --text-primary: #2d3748;
     --text-secondary: #4a5568;
     --text-light: #718096;
     
-    /* خلفية زجاجية (Glassmorphism) */
     --glass-bg: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.2);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     
-    /* ألوان الوضع الداكن */
     --dark-bg: #0f172a;
     --dark-card: #1e293b;
     --dark-text: #e2e8f0;
     --dark-text-secondary: #94a3b8;
     
-    /* أنماط الخطوط */
     --font-arabic: 'Cairo', 'Noto Sans Arabic', sans-serif;
     --font-english: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     
-    /* أنماط التصميم */
     --border-radius-xl: 24px;
     --border-radius-lg: 20px;
     --border-radius-md: 16px;
     --border-radius-sm: 12px;
     --border-radius-xs: 8px;
     
-    /* التحولات والحركات */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --transition-fast: all 0.2s ease;
     
-    /* الظلال */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.16);
     --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.2);
     
-    /* الأبعاد */
     --header-height: 80px;
     --sidebar-width: 320px;
     --max-width: 1400px;
 }
 
-/* الوضع الداكن */
 [data-theme="dark"] {
     --glass-bg: rgba(30, 41, 59, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
@@ -64,7 +52,6 @@
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* إعدادات عامة */
 * {
     margin: 0;
     padding: 0;
@@ -91,7 +78,6 @@ body[data-theme="dark"] {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
-/* خلفية متحركة من النقاط */
 body::before {
     content: '';
     position: fixed;
@@ -107,7 +93,6 @@ body::before {
     animation: gradientShift 20s ease infinite alternate;
 }
 
-/* الحاوية الرئيسية */
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -118,7 +103,6 @@ body::before {
     position: relative;
 }
 
-/* الرأس */
 .header {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
@@ -188,7 +172,6 @@ body::before {
     margin-bottom: 8px;
 }
 
-/* معلومات الشعبة */
 .section-info {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -226,7 +209,6 @@ body::before {
     color: transparent;
 }
 
-/* أدوات التحكم */
 .controls {
     display: flex;
     gap: 16px;
@@ -281,7 +263,6 @@ body::before {
     transform: translateY(-2px) scale(0.98);
 }
 
-/* القائمة الأسبوعية للشاشات الصغيرة */
 .mobile-nav {
     display: none;
     flex-direction: column;
@@ -363,7 +344,6 @@ body::before {
     opacity: 0.9;
 }
 
-/* المحتوى الرئيسي */
 .main-content {
     display: flex;
     gap: 32px;
@@ -372,7 +352,6 @@ body::before {
     position: relative;
 }
 
-/* الشريط الجانبي */
 .sidebar {
     width: var(--sidebar-width);
     background: var(--glass-bg);
@@ -443,7 +422,6 @@ body::before {
     transform: rotate(90deg);
 }
 
-/* اختيار الشعبة */
 .sidebar-section-selector {
     margin-bottom: 28px;
     padding-bottom: 28px;
@@ -523,7 +501,6 @@ body::before {
     opacity: 0.9;
 }
 
-/* قائمة الأيام */
 .days-list {
     display: flex;
     flex-direction: column;
@@ -600,7 +577,6 @@ body::before {
     transform: translateX(-4px);
 }
 
-/* الإحصائيات */
 .sidebar-stats {
     background: var(--glass-bg);
     border-radius: var(--border-radius-md);
@@ -649,7 +625,6 @@ body::before {
     color: var(--text-secondary);
 }
 
-/* الوقت الحالي */
 .sidebar-footer {
     margin-top: auto;
 }
@@ -682,14 +657,12 @@ body::before {
     color: var(--text-light);
 }
 
-/* محتوى الجدول */
 .schedule-content {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* عنوان اليوم */
 .day-header {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
@@ -731,7 +704,6 @@ body::before {
     font-size: 1.1rem;
 }
 
-/* حاوية المحاضرات */
 .lectures-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -739,7 +711,6 @@ body::before {
     flex: 1;
 }
 
-/* بطاقات المحاضرات */
 .lecture-card {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
@@ -874,7 +845,6 @@ body::before {
     font-weight: 500;
 }
 
-/* حالة عدم وجود محاضرات */
 .no-lectures {
     display: flex;
     justify-content: center;
@@ -932,7 +902,6 @@ body::before {
     line-height: 1.6;
 }
 
-/* معلومات إضافية */
 .additional-info {
     margin-top: 32px;
 }
@@ -992,7 +961,6 @@ body::before {
     font-size: 1.05rem;
 }
 
-/* التذييل */
 .footer {
     margin-top: auto;
     padding: 32px 0 24px;
@@ -1125,7 +1093,6 @@ body::before {
     border: 1px solid var(--glass-border);
 }
 
-/* زر فتح الشريط الجانبي */
 .sidebar-toggle {
     position: fixed;
     bottom: 40px;
@@ -1151,7 +1118,6 @@ body::before {
     box-shadow: var(--shadow-xl);
 }
 
-/* نافذة الإعدادات */
 .settings-modal {
     position: fixed;
     top: 0;
@@ -1282,7 +1248,6 @@ body::before {
     box-shadow: var(--shadow-lg);
 }
 
-/* الأنيميشن */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -1342,7 +1307,6 @@ body::before {
 .lecture-card:nth-child(7) { animation-delay: 0.7s; }
 .lecture-card:nth-child(8) { animation-delay: 0.8s; }
 
-/* تأثيرات خاصة */
 .floating {
     animation: float 6s ease-in-out infinite;
 }
@@ -1363,7 +1327,6 @@ body::before {
     }
 }
 
-/* التجاوب مع الشاشات */
 @media (max-width: 1200px) {
     .lectures-container {
         grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -1550,7 +1513,6 @@ body::before {
     }
 }
 
-/* تخصيصات للغة الإنجليزية */
 body[dir="ltr"] .day-item,
 body[dir="ltr"] .lecture-teacher,
 body[dir="ltr"] .lecture-header,
@@ -1597,7 +1559,6 @@ body[dir="ltr"] .day-item:hover i {
     transform: rotate(180deg) translateX(-4px);
 }
 
-/* تأثيرات تحميل */
 .loading {
     position: relative;
     overflow: hidden;
@@ -1628,7 +1589,6 @@ body[dir="ltr"] .day-item:hover i {
     }
 }
 
-/* تخصيص شريط التمرير */
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -1648,13 +1608,13 @@ body[dir="ltr"] .day-item:hover i {
     background: var(--secondary-gradient);
 }
 
-/* تأثيرات خاصة للبطاقات */
+
 .lecture-card.highlight {
     animation: pulse 2s infinite;
     border: 2px solid var(--saturday-color);
 }
 
-/* مؤشرات الوقت */
+
 .time-indicator {
     position: relative;
 }
@@ -1673,13 +1633,13 @@ body[dir="ltr"] .day-item:hover i {
     animation: pulse 2s infinite;
 }
 
-/* تأثيرات عند التركيز */
+
 *:focus {
     outline: 2px solid var(--saturday-color);
     outline-offset: 2px;
 }
 
-/* تحسين إمكانية الوصول */
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

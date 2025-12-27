@@ -11,13 +11,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- رأس الصفحة -->
         <header class="header">
             <div class="header-content">
                 <h1 class="main-title animate-fade-in">جدول المحاضرات الأسبوعي</h1>
                 <p class="subtitle animate-fade-in-delayed">السبت - الأحد - الإثنين | بداية من 8:30 صباحاً</p>
                 
-                <!-- معلومات الشعبة -->
                 <div class="section-info" id="sectionInfo">
                     <div class="current-section">
                         <i class="fas fa-users"></i>
@@ -25,9 +23,7 @@
                     </div>
                 </div>
                 
-                <!-- أدوات التحكم -->
                 <div class="controls">
-                    <!-- تبديل الشعبة -->
                     <div class="section-toggle">
                         <button id="sectionToggle" class="toggle-btn" aria-label="تبديل الشعبة">
                             <span class="section-icon">
@@ -37,7 +33,6 @@
                         </button>
                     </div>
                     
-                    <!-- تبديل اللغة -->
                     <div class="language-toggle">
                         <button id="languageToggle" class="toggle-btn" aria-label="تبديل اللغة">
                             <span class="lang-icon">
@@ -47,7 +42,6 @@
                         </button>
                     </div>
                     
-                    <!-- تبديل الوضع الداكن -->
                     <div class="theme-toggle">
                         <button id="themeToggle" class="toggle-btn" aria-label="تبديل الوضع الداكن">
                             <i class="fas fa-moon" id="themeIcon"></i>
@@ -58,7 +52,6 @@
             </div>
         </header>
 
-        <!-- القائمة الأسبوعية للشاشات الصغيرة -->
         <nav class="mobile-nav">
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح قائمة الأيام">
                 <i class="fas fa-calendar-alt"></i>
@@ -81,7 +74,6 @@
         </nav>
 
         <div class="main-content">
-            <!-- الشريط الجانبي -->
             <aside class="sidebar" id="sidebar">
                 <div class="sidebar-header">
                     <h2 class="sidebar-title">أيام الأسبوع</h2>
@@ -90,7 +82,6 @@
                     </button>
                 </div>
                 
-                <!-- اختيار الشعبة -->
                 <div class="sidebar-section-selector">
                     <h3 class="section-selector-title">اختر الشعبة</h3>
                     <div class="section-buttons">
@@ -113,7 +104,6 @@
                     </div>
                 </div>
                 
-                <!-- قائمة الأيام -->
                 <div class="days-list">
                     <button class="day-item active" data-day="saturday">
                         <span class="day-name">السبت</span>
@@ -132,7 +122,6 @@
                     </button>
                 </div>
                 
-                <!-- الإحصائيات -->
                 <div class="sidebar-stats">
                     <div class="stat-item">
                         <i class="fas fa-book-open"></i>
@@ -150,7 +139,6 @@
                     </div>
                 </div>
                 
-                <!-- الوقت الحالي -->
                 <div class="sidebar-footer">
                     <div class="current-time">
                         <i class="fas fa-clock"></i>
@@ -159,9 +147,7 @@
                 </div>
             </aside>
 
-            <!-- محتوى الجدول الرئيسي -->
             <main class="schedule-content">
-                <!-- عنوان اليوم -->
                 <div class="day-header">
                     <h2 class="day-title" id="currentDayTitle">يوم السبت</h2>
                     <div class="day-info">
@@ -170,9 +156,7 @@
                     </div>
                 </div>
 
-                <!-- بطاقات المحاضرات -->
                 <div class="lectures-container" id="lecturesContainer">
-                    <!-- محاضرات السبت - الشعبة A -->
                     <div class="lecture-card saturday animate-fade-in">
                         <div class="lecture-header">
                             <div class="lecture-time">8:30 - 9:15</div>
@@ -189,20 +173,6 @@
                     
                     <div class="lecture-card saturday animate-fade-in" style="animation-delay: 0.1s">
                         <div class="lecture-header">
-                            <div class="lecture-time">9:15 - 10:00</div>
-                            <div class="lecture-day">السبت</div>
-                        </div>
-                        <h3 class="lecture-title">Arabic Language</h3>
-                        <div class="lecture-subject">اللغة العربية</div>
-                        <div class="lecture-teacher">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                            <span><strong>المدرس:</strong> Non Departmental</span>
-                        </div>
-                        <div class="lecture-department">عام</div>
-                    </div>
-                    
-                    <div class="lecture-card saturday animate-fade-in" style="animation-delay: 0.2s">
-                        <div class="lecture-header">
                             <div class="lecture-time">10:30 - 11:15</div>
                             <div class="lecture-day">السبت</div>
                         </div>
@@ -214,9 +184,22 @@
                         </div>
                         <div class="lecture-department">قسم اللغة الإنجليزية</div>
                     </div>
+                    
+                    <div class="lecture-card saturday animate-fade-in" style="animation-delay: 0.2s">
+                        <div class="lecture-header">
+                            <div class="lecture-time">12:30 - 1:15</div>
+                            <div class="lecture-day">السبت</div>
+                        </div>
+                        <h3 class="lecture-title">Arabic Language</h3>
+                        <div class="lecture-subject">اللغة العربية</div>
+                        <div class="lecture-teacher">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span><strong>المدرس:</strong> Non Departmental</span>
+                        </div>
+                        <div class="lecture-department">قسم اللغة الإنجليزية</div>
+                    </div>
                 </div>
 
-                <!-- رسالة عندما لا توجد محاضرات -->
                 <div class="no-lectures" id="noLecturesMessage" style="display: none;">
                     <div class="empty-state">
                         <i class="fas fa-calendar-times"></i>
@@ -225,7 +208,6 @@
                     </div>
                 </div>
                 
-                <!-- معلومات إضافية -->
                 <div class="additional-info">
                     <div class="info-card">
                         <i class="fas fa-info-circle"></i>
@@ -238,13 +220,12 @@
             </main>
         </div>
 
-        <!-- تذييل الصفحة -->
         <footer class="footer">
             <div class="footer-content">
                 <div class="developer-info">
                     <p class="developer-name">
                         <i class="fas fa-code"></i>
-                        <span>تم التطوير بواسطة: محمد الباقر</span>
+                        <span>تم التطوير بواسطة : محمد الباقر</span>
                     </p>
                     
                     <div class="developer-social">
@@ -253,7 +234,7 @@
                             <span>الموقع الرسمي للمطور</span>
                         </a>
                         
-                        <a href="https://www.instagram.com/wsl.iq/" target="_blank" class="developer-link instagram" rel="noopener">
+                        <a href="https://www.instagram.com/g6xs0r/" target="_blank" class="developer-link instagram" rel="noopener">
                             <i class="fab fa-instagram"></i>
                             <span class="social-text">إنستغرام</span>
                         </a>
@@ -262,32 +243,51 @@
                             <i class="fab fa-telegram"></i>
                             <span class="social-text">تلغرام</span>
                         </a>
+
+                        <a href="https://play.google.com/store/apps/dev?id=8573878787788783878" target="_blank" class="developer-link android" rel="noopener">
+                            <i class="fab fa-android"></i>
+                            <span class="social-text">Android</span>
+                        </a>
+
+                        <a href="https://www.microsoft.com/store/apps/9NBLGGH4NNS1" target="_blank" class="developer-link windows" rel="noopener">
+                            <i class="fab fa-windows"></i>
+                            <span class="social-text">windows</span>
+                        </a>
+
+                        <a href="policies.html" class="developer-link policies">
+                            <i class="fas fa-file-contract"></i>
+                            <span class="social-text">السياسات</span>
+                        </a>
+
                     </div>
                 </div>
                 <div class="footer-note">
                     <p>📚 جدول المحاضرات الأسبوعي - كلية التربية - قسم اللغة الإنجليزية</p>
                 </div>
+
+                <div role="alert" aria-live="polite" style="margin-top:14px;border-radius:12px;padding:14px 16px;background:linear-gradient(90deg,#fff3cd,#ffe8a1);color:#5a3e00;border:1px solid rgba(90,62,0,0.12);box-shadow:0 8px 24px rgba(90,62,0,0.08);font-weight:700;text-align:right;display:flex;align-items:center;gap:12px;">
+                    <span style="font-size:1.2rem;line-height:1;">⚠️</span>
+                    <small style="font-size:0.95rem;line-height:1.4;display:block;">
+                    ملاحظة: هذا العمل مُنجز من قِبل مطوّر مستقل، وبمبادرة شخصية هدفها تنظيم المحتوى وتقديمه بصورة أوضح وأكثر احتراف المشروع غير تابع لأي جهة رسمية، وتم العمل عليه بدافع الاهتمام والترتيب وتحسين تجربة المستخدم.
+                    </small>
+                </div>
+
             </div>
         </footer>
     </div>
 
-    <!-- زر فتح الشريط الجانبي على الشاشات الصغيرة -->
     <button class="sidebar-toggle" id="sidebarToggle" aria-label="فتح الشريط الجانبي">
         <i class="fas fa-bars"></i>
     </button>
 
-    <!-- رسائل Toast -->
     <div id="toastContainer"></div>
 
     <script src="script.js"></script>
     
-    <!-- كود تهيئة مباشر -->
     <script>
-    // تهيئة سريعة عند تحميل الصفحة
     document.addEventListener('DOMContentLoaded', function() {
         console.log('📄 صفحة HTML محملة');
         
-        // بدء المؤقت
         function updateClock() {
             const timeElement = document.getElementById('currentTime');
             if (timeElement) {
@@ -301,11 +301,9 @@
             }
         }
         
-        // تحديث الساعة كل دقيقة
         updateClock();
         setInterval(updateClock, 60000);
         
-        // إضافة تأثيرات Hover للبطاقات
         const cards = document.querySelectorAll('.lecture-card');
         cards.forEach(card => {
             card.addEventListener('mouseenter', function() {

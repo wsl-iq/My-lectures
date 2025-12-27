@@ -1,4 +1,3 @@
-// بيانات جدول المحاضرات الكاملة
 const scheduleData = {
     "A": {
         "name": "الشعبة A",
@@ -15,15 +14,6 @@ const scheduleData = {
                     departmentAr: "قسم اللغة الإنجليزية"
                 },
                 { 
-                    time: "9:15 - 10:00", 
-                    subject: "Arabic Language",
-                    subjectAr: "اللغة العربية",
-                    teacher: "Non Departmental",
-                    teacherAr: "غير تخصصي",
-                    department: "General",
-                    departmentAr: "عام"
-                },
-                { 
                     time: "10:30 - 11:15", 
                     subject: "Phonetics",
                     subjectAr: "علم الأصوات",
@@ -31,9 +21,74 @@ const scheduleData = {
                     teacherAr: "م. سيران نجم",
                     department: "English Department",
                     departmentAr: "قسم اللغة الإنجليزية"
-                }
+                },
+                { 
+                    time: "12:00 - 1:15", 
+                    subject: "Arabic Language",
+                    subjectAr: "اللغة العربية",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    "time": "1:15 - 2:00",
+                    "subject": "No Lectures",
+                    "subjectAr": "لا يوجد محاضرات",
+                    "teacher": "UnKnown",
+                    "teacherAr": "غير معروف",
+                    "department": "No Department",
+                    "departmentAr": "لا يوجد قسم"
+                }  
             ],
             "sunday": [
+                {
+                    "time": "8:30 - 9:15",
+                    "subject": "No Lectures",
+                    "subjectAr": "لا يوجد محاضرات",
+                    "teacher": "UnKnown",
+                    "teacherAr": "غير معروف",
+                    "department": "No Department",
+                    "departmentAr": "لا يوجد قسم"
+                },
+                { 
+                    time: "9:15 - 10:0", 
+                    subject: "Reading 1",
+                    subjectAr: "القراءة 1",
+                    teacher: "Ms. Jeehan Abd Al-Kareem",
+                    teacherAr: "م. جيهان عبد الكريم",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                { 
+                    time: "10:30 - 11:15 | 11:15-12:00", 
+                    subject: "An Introduction to English Literature",
+                    subjectAr: "مقدمة في الأدب الإنجليزي",
+                    teacher: "Mr. Mohammad Rahman",
+                    teacherAr: "أ. محمد الرحمن",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                {
+                    "time": "12:00 - 1:15",
+                    "subject": "No Lectures",
+                    "subjectAr": "لا يوجد محاضرات",
+                    "teacher": "UnKnown",
+                    "teacherAr": "غير معروف",
+                    "department": "No Department",
+                    "departmentAr": "لا يوجد قسم"
+                },
+                { 
+                    time: "1:15-2:00", 
+                    subject: "Fundemental of Education",
+                    subjectAr: "أصول التربية",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                }
+            ],
+            "monday": [
                 { 
                     time: "8:30 - 9:15", 
                     subject: "Composing Writing",
@@ -60,35 +115,24 @@ const scheduleData = {
                     teacherAr: "م. سارة أحمد",
                     department: "English Department",
                     departmentAr: "قسم اللغة الإنجليزية"
-                }
-            ],
-            "monday": [
-                { 
-                    time: "8:30 - 9:15", 
-                    subject: "Reading 1",
-                    subjectAr: "القراءة 1",
-                    teacher: "Ms. Jeehan Abd Al-Kareem",
-                    teacherAr: "م. جيهان عبد الكريم",
-                    department: "English Department",
-                    departmentAr: "قسم اللغة الإنجليزية"
                 },
-                { 
-                    time: "9:15 - 10:00", 
-                    subject: "An Introduction to English Literature",
-                    subjectAr: "مقدمة في الأدب الإنجليزي",
-                    teacher: "Mr. Mohammad Rahman",
-                    teacherAr: "أ. محمد الرحمن",
-                    department: "English Department",
-                    departmentAr: "قسم اللغة الإنجليزية"
+                {
+                    "time": "11:15 - 12:00",
+                    "subject": "Educational Psychology",
+                    "subjectAr": "علم التربية النفسية",
+                    "teacher": "Non Departmental",
+                    "teacherAr": "غير تخصصي",
+                    "department": "General",
+                    "departmentAr": "عام"
                 },
-                { 
-                    time: "10:30 - 11:15", 
-                    subject: "Computer Science",
-                    subjectAr: "علوم الحاسوب",
-                    teacher: "Non Departmental",
-                    teacherAr: "غير تخصصي",
-                    department: "General",
-                    departmentAr: "عام"
+                {
+                    "time": "12:00 - 1:15",
+                    "subject": "Computer Science",
+                    "subjectAr": "علوم الحاسوب",
+                    "teacher": "Non Departmental",
+                    "teacherAr": "غير تخصصي",
+                    "department": "General",
+                    "departmentAr": "عام"
                 }
             ]
         }
@@ -99,47 +143,61 @@ const scheduleData = {
         "schedule": {
             "saturday": [
                 { 
-                    time: "8:30 - 9:15", 
-                    subject: "English Grammar",
-                    subjectAr: "قواعد اللغة الإنجليزية",
-                    teacher: "Ms. Abrar Sa'ad",
-                    teacherAr: "م. أبرار سعد",
+                    time: "8:30 - 9:15 | 9:15 - 10:00", 
+                    subject: "Phonetics",
+                    subjectAr: "علم الأصوات",
+                    teacher: "Ms. Sayran Nejim",
+                    teacherAr: "م. سيران نجم",
                     department: "English Department",
                     departmentAr: "قسم اللغة الإنجليزية"
                 },
                 { 
-                    time: "9:15 - 10:00", 
-                    subject: "Human Rights",
-                    subjectAr: "حقوق الإنسان",
-                    teacher: "Dr. Nidhal Metti",
-                    teacherAr: "د. نضال متي",
+                    time: "10:30 - 11:15", 
+                    subject: "Arabic Language",
+                    subjectAr: "اللغة العربية",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
                     department: "General",
                     departmentAr: "عام"
+                },
+                {
+                    "time": "11:15 - 12:00",
+                    "subject": "No Lectures",
+                    "subjectAr": "لا يوجد محاضرات",
+                    "teacher": "UnKnown",
+                    "teacherAr": "غير معروف",
+                },
+                {
+                    "time": "12:30 - 1:15 | 1:15-2:00",
+                    "subject": "English Grammar",
+                    "subjectAr": "قواعد اللغة الإنجليزية",
+                    "teacher": "Ms. Abrar Sa'ad",
+                    "teacherAr": "م. أبرار سعد",
+                    "department": "English Department",
+                    "departmentAr": "قسم اللغة الإنجليزية"
                 }
             ],
             "sunday": [
                 { 
                     time: "8:30 - 9:15", 
-                    subject: "Composing Writing",
-                    subjectAr: "كتابة التحرير",
-                    teacher: "Mr. Ali Abas",
-                    teacherAr: "أ. علي عباس",
+                    subject: "Human Rights",
+                    subjectAr: "حقوق الإنسان",
+                    teacher: "Dr. Nidhal Metti",
+                    teacherAr: "د. نضال متي",
                     department: "English Department",
                     departmentAr: "قسم اللغة الإنجليزية"
                 },
-                { 
-                    time: "9:15 - 10:00", 
-                    subject: "Fundemental of Education",
-                    subjectAr: "أصول التربية",
-                    teacher: "Non Departmental",
-                    teacherAr: "غير تخصصي",
+                {
+                    time: "9:15 - 10:00",
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "UnKnown",
+                    teacherAr: "غير معروف",
                     department: "General",
                     departmentAr: "عام"
-                }
-            ],
-            "monday": [
+                },
                 { 
-                    time: "8:30 - 9:15", 
+                    time: "10:30 - 11:15", 
                     subject: "Reading 1",
                     subjectAr: "القراءة 1",
                     teacher: "Ms. Jeehan Abd Al-Kareem",
@@ -148,7 +206,73 @@ const scheduleData = {
                     departmentAr: "قسم اللغة الإنجليزية"
                 },
                 { 
+                    time: "11:15 - 12:00", 
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "UnKnown",
+                    teacherAr: "غير معروف",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                { 
+                    time: "12:30 - 1:15 | 1:15 - 2:00", 
+                    subject: "An Introduction to English Literature",
+                    subjectAr: "مقدمة في الأدب الإنجليزي",
+                    teacher: "Mr. Mohammad Rahman",
+                    teacherAr: "أ. محمد الرحمن",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                }
+            ],
+            "monday": [
+                { 
+                    time: "8:30 - 9:15", 
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "UnKnown",
+                    teacherAr: "غير معروف",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                { 
                     time: "9:15 - 10:00", 
+                    subject: "Composing Writing",
+                    subjectAr: "كتابة التحرير",
+                    teacher: "Mr. Ali Abas",
+                    teacherAr: "أ. علي عباس",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                {
+                    time: "10:30 - 11:15",
+                    subject: "Fundemental of Education",
+                    subjectAr: "مبادئ التربية",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                    
+                },
+                {
+                    time: "11:15 - 12:00",
+                    subject: "Listening and Speaking/Lab",
+                    subjectAr: "الاستماع والتحدث/المختبر",
+                    teacher: "Ms. Sarah Ahmed",
+                    teacherAr: "م. سارة أحمد",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                {
+                    time: "12:30 - 1:15",
+                    subject: "Educational Psychology",
+                    subjectAr: "علم التربية النفسية",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "1:15 - 2:00",
                     subject: "Computer Science",
                     subjectAr: "علوم الحاسوب",
                     teacher: "Non Departmental",
@@ -166,12 +290,12 @@ const scheduleData = {
             "saturday": [
                 { 
                     time: "8:30 - 9:15", 
-                    subject: "Phonetics",
-                    subjectAr: "علم الأصوات",
-                    teacher: "Ms. Sayran Nejim",
-                    teacherAr: "م. سيران نجم",
-                    department: "English Department",
-                    departmentAr: "قسم اللغة الإنجليزية"
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "UnKnown",
+                    teacherAr: "غير معروف",
+                    department: "General",
+                    departmentAr: "عام"
                 },
                 { 
                     time: "9:15 - 10:00", 
@@ -181,31 +305,56 @@ const scheduleData = {
                     teacherAr: "غير تخصصي",
                     department: "General",
                     departmentAr: "عام"
+                },
+                {
+                    time: "10:30 - 11:15",
+                    subject: "Fundemental of Education",
+                    subjectAr: "مبادئ التربية",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "11:15 - 12:00",
+                    subject: "Reading 1",
+                    subjectAr: "القراءة 1",
+                    teacher: "Ms. Jeehan Abd Al-Kareem",
+                    teacherAr: "م. جيهان عبد الكريم",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "12:30 - 1:15 | 1:15 - 2:00",
+                    subject: "Phonetics",
+                    subjectAr: "اللفظية",
+                    teacher: "Ms. Sayran Nejim",
+                    teacherAr: "م. سيران نجم",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
                 }
             ],
             "sunday": [
                 { 
                     time: "8:30 - 9:15", 
-                    subject: "Listening and Speaking/Lab",
-                    subjectAr: "الاستماع والتحدث/المختبر",
-                    teacher: "Ms. Sarah Ahmed",
-                    teacherAr: "م. سارة أحمد",
-                    department: "English Department",
-                    departmentAr: "قسم اللغة الإنجليزية"
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "UnKnown",
+                    teacherAr: "غير معروف",
+                    department: "General",
+                    departmentAr: "عام"
                 },
                 { 
                     time: "9:15 - 10:00", 
-                    subject: "An Introduction to English Literature",
-                    subjectAr: "مقدمة في الأدب الإنجليزي",
-                    teacher: "Mr. Mohammad Rahman",
-                    teacherAr: "أ. محمد الرحمن",
-                    department: "English Department",
-                    departmentAr: "قسم اللغة الإنجليزية"
-                }
-            ],
-            "monday": [
+                    subject: "Human Rights",
+                    subjectAr: "حقوق الإنسان",
+                    teacher: "Dr. Nidhal Metti",
+                    teacherAr: "د. نضال متي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
                 { 
-                    time: "8:30 - 9:15", 
+                    time: "10:30 - 11:15 | 11:15 - 12:00", 
                     subject: "English Grammar",
                     subjectAr: "قواعد اللغة الإنجليزية",
                     teacher: "Ms. Abrar Sa'ad",
@@ -214,11 +363,67 @@ const scheduleData = {
                     departmentAr: "قسم اللغة الإنجليزية"
                 },
                 { 
+                    time: "12:30 - 1:15", 
+                    subject: "Computer Science",
+                    subjectAr: "علوم الحاسوب",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "1:15 - 2:00",
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "UnKnown",
+                    teacherAr: "غير معروف",
+                    department: "General",
+                    departmentAr: "عام"
+                }
+            ],
+            "monday": [
+                { 
+                    time: "8:30 - 9:15", 
+                    subject: "Listening and Speaking/Lab",
+                    subjectAr: "الاستماع والتحدث/العملية",
+                    teacher: "Ms. Sarah Ahmed",
+                    teacherAr: "م. سارة أحمد",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                { 
                     time: "9:15 - 10:00", 
-                    subject: "Human Rights",
-                    subjectAr: "حقوق الإنسان",
-                    teacher: "Dr. Nidhal Metti",
-                    teacherAr: "د. نضال متي",
+                    subject: "Educational Psychology",
+                    subjectAr: "علم النفس التربوي",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "10:30 - 11:15 | 11:15 - 12:00",
+                    subject: "An Introduction to English Literature",
+                    subjectAr: "مقدمة في الأدب الإنجليزي",
+                    teacher: "Mr. Mohammad Rahman",
+                    teacherAr: "أ. محمد رحمن",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                {
+                    time: "12:30 - 1:15",
+                    subject: "Composing Writing",
+                    subjectAr: "كتابة التحرير",
+                    teacher: "Mr. Ali Abas",
+                    teacherAr: "أ. علي عباس",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                {
+                    time: "1:15 - 2:00",
+                    subject: "Fundemental of Education",
+                    subjectAr: "أصول التربية",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
                     department: "General",
                     departmentAr: "عام"
                 }
@@ -232,46 +437,6 @@ const scheduleData = {
             "saturday": [
                 { 
                     time: "8:30 - 9:15", 
-                    subject: "Composing Writing",
-                    subjectAr: "كتابة التحرير",
-                    teacher: "Mr. Ali Abas",
-                    teacherAr: "أ. علي عباس",
-                    department: "English Department",
-                    departmentAr: "قسم اللغة الإنجليزية"
-                },
-                { 
-                    time: "9:15 - 10:00", 
-                    subject: "English Grammar",
-                    subjectAr: "قواعد اللغة الإنجليزية",
-                    teacher: "Ms. Abrar Sa'ad",
-                    teacherAr: "م. أبرار سعد",
-                    department: "English Department",
-                    departmentAr: "قسم اللغة الإنجليزية"
-                }
-            ],
-            "sunday": [
-                { 
-                    time: "8:30 - 9:15", 
-                    subject: "Human Rights",
-                    subjectAr: "حقوق الإنسان",
-                    teacher: "Dr. Nidhal Metti",
-                    teacherAr: "د. نضال متي",
-                    department: "General",
-                    departmentAr: "عام"
-                },
-                { 
-                    time: "9:15 - 10:00", 
-                    subject: "Fundemental of Education",
-                    subjectAr: "أصول التربية",
-                    teacher: "Non Departmental",
-                    teacherAr: "غير تخصصي",
-                    department: "General",
-                    departmentAr: "عام"
-                }
-            ],
-            "monday": [
-                { 
-                    time: "8:30 - 9:15", 
                     subject: "Arabic Language",
                     subjectAr: "اللغة العربية",
                     teacher: "Non Departmental",
@@ -287,13 +452,132 @@ const scheduleData = {
                     teacherAr: "غير تخصصي",
                     department: "General",
                     departmentAr: "عام"
+                },
+                {
+                    time: "10:30 - 11:15 | 11:15 - 12:00",
+                    subject: "An Introduction to English Literature",
+                    subjectAr: "مقدمة في الأدب الإنجليزي",
+                    teacher: "Mr. Mohammad Rahman",
+                    teacherAr: "أ. محمد رحمن",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                {
+                    time: "12:30 - 1:15",
+                    subject: "Reading 1",
+                    subjectAr: "قراءة 1",
+                    teacher: "Ms. Jeehan Abd Al-Kareem",
+                    teacherAr: "م. جيهان عبد الكريم",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                {
+                    time: "1:15 - 2:00",
+                    subject: "Composing Writing",
+                    subjectAr: "كتابة التحرير",
+                    teacher: "Mr. Ali Abas",
+                    teacherAr: "أ. علي عباس",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                }
+            ],
+            "sunday": [
+                { 
+                    time: "8:30 - 9:15 | 9:15 - 10:00", 
+                    subject: "English Grammar",
+                    subjectAr: "القواعد الإنجليزية",
+                    teacher: "Ms. Abrar Sa'ad",
+                    teacherAr: "م. أبرار سعد",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                { 
+                    time: "10:30 - 11:15", 
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                { 
+                    time: "11:15 - 12:00", 
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {   time: "12:30 - 1:15",
+                    subject: "Human Rights",
+                    subjectAr: "حقوق الإنسان",
+                    teacher: "Ms. Jeehan Abd Al-Kareem",
+                    teacherAr: "م. جيهان عبد الكريم",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "1:15 - 2:00",
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                }
+            ],
+            "monday": [
+                { 
+                    time: "8:30 - 9:15 | 9:15 - 10:00", 
+                    subject: "Phonetics",
+                    subjectAr: "علم الأصوات",
+                    teacher: "Ms. Sayran Nejim",
+                    teacherAr: "م. سيران نجم",
+                    department: "English Department",
+                    departmentAr: "قسم اللغة الإنجليزية"
+                },
+                { 
+                    time: "10:30 - 11:15", 
+                    subject: "No Lectures",
+                    subjectAr: "لا يوجد محاضرات",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "11:15 - 12:00",
+                    subject: "Computer Science",
+                    subjectAr: "علوم الحاسوب",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "12:30 - 1:15",
+                    subject: "Listening and Speaking/Lab",
+                    subjectAr: "الاستماع والتحدث/العملية",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
+                },
+                {
+                    time: "1:15 - 2:00",
+                    subject: "Educational Psychology",
+                    subjectAr: "علم النفس التربوي",
+                    teacher: "Non Departmental",
+                    teacherAr: "غير تخصصي",
+                    department: "General",
+                    departmentAr: "عام"
                 }
             ]
         }
     }
 };
 
-// حالة التطبيق
 const appState = {
     currentSection: 'A',
     currentDay: 'saturday',
@@ -831,10 +1115,8 @@ function showToast(message) {
     }, 3000);
 }
 
-// تهيئة إضافية عند تحميل النافذة
 window.addEventListener('load', function() {
     console.log('🌐 نافذة الصفحة محملة بالكامل');
     
-    // إضافة تأثيرات للبطاقات المبدئية
     setTimeout(setupCardHoverEffects, 500);
 });
